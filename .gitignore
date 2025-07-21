@@ -1,27 +1,24 @@
-# Ignore everything by default
-*
-
-# Keep source and config files
-!src/
-!pom.xml
-!mvnw
-!mvnw.cmd
-!/.mvn/
-!.gitignore
-!.gitattributes
+# Gitignore generated for a Spring Boot project
 
 # Ignore build artifacts
 target/
+build/ # For Gradle projects
 *.class
 
-# IntelliJ and VS Code folders
+# IntelliJ and VS Code folders and files
 .idea/
-.idea/workspace.xml
-.idea/usage.statistics.xml
 .vscode/
 *.iml
 *.ipr
 *.iws
+.project # Eclipse
+.classpath # Eclipse
+.settings/ # Eclipse
+nbproject/ # NetBeans
+nbbuild/ # NetBeans
+dist/ # NetBeans
+nbdist/ # NetBeans
+.nb-gradle/ # NetBeans
 
 # System files
 # macOS
@@ -37,18 +34,18 @@ ehthumbs.db
 *.swp
 *~
 .cache/
-/.local/
-
-# Eclipse / NetBeans
-.classpath
-.project
-.settings/
-nbproject/private/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
+.local/ # If .local refers to user-specific application data
 
 # Logs and backups
 *.log
 *.bak
+
+# Maven Wrapper
+mvnw
+mvnw.cmd
+.mvn/
+
+# Local configuration files (if you ever use them)
+*.properties.local
+*.yml.local
+.env

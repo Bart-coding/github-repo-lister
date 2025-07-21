@@ -1,0 +1,54 @@
+# Ignore everything by default
+*
+
+# Keep source and config files
+!src/
+!pom.xml
+!mvnw
+!mvnw.cmd
+!/.mvn/
+!.gitignore
+!.gitattributes
+
+# Ignore build artifacts
+target/
+*.class
+
+# IntelliJ and VS Code folders
+.idea/
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# System files
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Linux
+*.swp
+*~
+.cache/
+/.local/
+
+# Eclipse / NetBeans
+.classpath
+.project
+.settings/
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Logs and backups
+*.log
+*.bak

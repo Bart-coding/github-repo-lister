@@ -22,11 +22,11 @@ public class GithubControllerIntegrationTest {
     TestRestTemplate restTemplate;
 
     private String buildUserReposUrl(String username) {
-        return ApiPaths.USERS + "/" + username + ApiPaths.REPOSITORIES_SUFFIX;
+        return ApiPaths.USERS + "/" + username + ApiPaths.REPOS_SUFFIX;
     }
 
     @Test
-    void shouldReturnRepositoriesForExistingUser() {
+    void shouldReturnReposForExistingUser() {
 
         String existingUsername = "octocat";
         String url = buildUserReposUrl(existingUsername);
@@ -35,8 +35,7 @@ public class GithubControllerIntegrationTest {
                 url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<>() {
-                }
+                new ParameterizedTypeReference<>() {}
         );
 
         assertThat(happyPathResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -44,7 +43,7 @@ public class GithubControllerIntegrationTest {
         assertThat(repositories).isNotNull().isNotEmpty();
 
         RepoInfoDto firstRepo = repositories.getFirst();
-        assertThat(firstRepo.repositoryName()).isNotBlank();
+        assertThat(firstRepo.name()).isNotBlank();
         assertThat(firstRepo.ownerLogin()).isEqualTo(existingUsername);
         assertThat(firstRepo.branches()).isNotNull().isNotEmpty();
         assertThat(firstRepo.branches().getFirst().name()).isNotBlank();

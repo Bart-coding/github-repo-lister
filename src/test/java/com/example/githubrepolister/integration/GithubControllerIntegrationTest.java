@@ -1,7 +1,7 @@
 package com.example.githubrepolister.integration;
 
 import com.example.githubrepolister.config.ApiPaths;
-import com.example.githubrepolister.dto.RepoInfoDto;
+import com.example.githubrepolister.dto.RepoView;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +31,7 @@ public class GithubControllerIntegrationTest {
         String existingUsername = "octocat";
         String url = buildUserReposUrl(existingUsername);
 
-        ResponseEntity<List<RepoInfoDto>> happyPathResponse = restTemplate.exchange(
+        ResponseEntity<List<RepoView>> happyPathResponse = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
@@ -39,11 +39,11 @@ public class GithubControllerIntegrationTest {
         );
 
         assertThat(happyPathResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        List<RepoInfoDto> repositories = happyPathResponse.getBody();
+        List<RepoView> repositories = happyPathResponse.getBody();
         assertThat(repositories).isNotNull().isNotEmpty();
 
-        RepoInfoDto firstRepo = repositories.getFirst();
-        assertThat(firstRepo.name()).isNotBlank();
+        RepoView firstRepo = repositories.getFirst();
+        assertThat(firstRepo.repositoryName()).isNotBlank();
         assertThat(firstRepo.ownerLogin()).isEqualTo(existingUsername);
         assertThat(firstRepo.branches()).isNotNull().isNotEmpty();
         assertThat(firstRepo.branches().getFirst().name()).isNotBlank();

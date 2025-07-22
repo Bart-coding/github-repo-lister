@@ -28,12 +28,12 @@ public class GithubService {
         this.githubApiBaseUrl = githubApiBaseUrl;
     }
 
-    public List<RepoInfoDto> listUserRepos(String username) {
+    public List<RepoView> listUserRepos(String username) {
 
         String reposUrl = githubApiBaseUrl + String.format(GithubApiConstants.USERS_REPOS_SOURCES, username);
 
         try {
-            ResponseEntity<List<GithubRepoDto>> response = restTemplate.exchange(
+            ResponseEntity<List<GithubRepo>> response = restTemplate.exchange(
                     reposUrl,
                     HttpMethod.GET,
                     null,
@@ -44,8 +44,8 @@ public class GithubService {
                 return response.getBody().stream()
                         .filter(repoDto -> !repoDto.fork())
                         .map(repoDto -> {
-                            List<BranchInfoDto> branches = listRepoBranches(repoDto.owner().login(), repoDto.name());
-                            return new RepoInfoDto(repoDto.name(), repoDto.owner().login(), branches);
+                            List<BranchInfo> branches = listRepoBranches(repoDto.owner().login(), repoDto.name());
+                            return new RepoView(repoDto.name(), repoDto.owner().login(), branches);
                         })
                         .collect(Collectors.toList());
             } else {
@@ -56,11 +56,11 @@ public class GithubService {
         }
     }
 
-    private List<BranchInfoDto> listRepoBranches(String ownerLogin, String repoName) {
+    private List<BranchInfo> listRepoBranches(String ownerLogin, String repoName) {
 
         String branchesUrl = githubApiBaseUrl + String.format(GithubApiConstants.REPOS_BRANCHES, ownerLogin, repoName);
 
-        ResponseEntity<List<GithubBranchDto>> response = restTemplate.exchange(
+        ResponseEntity<List<GithubBranch>> response = restTemplate.exchange(
                 branchesUrl,
                 HttpMethod.GET,
                 null,
@@ -69,7 +69,7 @@ public class GithubService {
 
         if (response.getStatusCode().is2xxSuccessful() && Objects.nonNull(response.getBody())) {
             return response.getBody().stream()
-                    .map(branchDto -> new BranchInfoDto(branchDto.name(), branchDto.commit().sha()))
+                    .map(branchDto -> new BranchInfo(branchDto.name(), branchDto.commit().sha()))
                     .collect(Collectors.toList());
         } else {
             return List.of();

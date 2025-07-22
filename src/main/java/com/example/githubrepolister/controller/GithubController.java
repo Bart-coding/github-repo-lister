@@ -22,8 +22,8 @@ public class GithubController {
     }
 
     @GetMapping("/{username}" + ApiPaths.REPOS_SUFFIX)
-    public ResponseEntity<List<RepoInfoDto>> getUserRepositories(@PathVariable String username) {
-        List<RepoInfoDto> repositories = githubService.listUserRepos((username));
-        return ResponseEntity.ok(repositories);
+    public ResponseEntity<List<RepoInfoDto>> getUserRepos(@PathVariable String username) {
+        List<RepoInfoDto> repos = githubService.listUserRepos((username));
+        return ResponseEntity.ok(repos);
     }
 }

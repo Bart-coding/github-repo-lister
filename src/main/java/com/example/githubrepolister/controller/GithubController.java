@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(ApiPaths.USERS)
+@RequestMapping("/api/v1")
 public class GithubController {
 
     private final GithubService githubService;
 
-    public GithubController (GithubService githubService) {
+    public GithubController(GithubService githubService) {
         this.githubService = githubService;
     }
 
-    @GetMapping("/{username}" + ApiPaths.REPOS_SUFFIX)
+    @GetMapping(ApiPaths.USERS_REPOS)
     public ResponseEntity<List<RepoView>> getUserRepos(@PathVariable String username) {
         List<RepoView> repos = githubService.listUserRepos((username));
         return ResponseEntity.ok(repos);

@@ -10,6 +10,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -21,25 +22,25 @@ public class GithubControllerIntegrationTest {
     @Autowired
     TestRestTemplate restTemplate;
 
-    private String buildUserReposUrl(String username) {
-        return ApiPaths.USERS + "/" + username + ApiPaths.REPOS_SUFFIX;
-    }
-
     @Test
-    void shouldReturnReposForExistingUser() {
+    public void shouldReturnReposForExistingUser() {
 
         String existingUsername = "octocat";
-        String url = buildUserReposUrl(existingUsername);
+        String url = UriComponentsBuilder.fromPath("/api/v1")
+                .path(ApiPaths.USERS_REPOS)
+                .buildAndExpand(existingUsername)
+                .toUriString();
 
-        ResponseEntity<List<RepoView>> happyPathResponse = restTemplate.exchange(
+        ResponseEntity<List<RepoView>> expectedResponse = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<>() {}
+                new ParameterizedTypeReference<>() {
+                }
         );
 
-        assertThat(happyPathResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        List<RepoView> repositories = happyPathResponse.getBody();
+        assertThat(expectedResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        List<RepoView> repositories = expectedResponse.getBody();
         assertThat(repositories).isNotNull().isNotEmpty();
 
         RepoView firstRepo = repositories.getFirst();

@@ -6,4 +6,5 @@ public record RepoView(
         String repositoryName,
         String ownerLogin,
         List<BranchInfo> branches
-) {}
+) {
+}

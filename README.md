@@ -185,8 +185,10 @@ A successful request returns a list of repositories and their branches.
 
 ## Key Implementation Aspects
 
-  * **Asynchronous Data Fetching (CompletableFuture):** Branch details for each repository are fetched in parallel. This approach prevents the application from being blocked or slowed down when fetching data for a large number of a user's repositories.
+  * **Dedicated Error Handling:** The `UserNotFoundException` is caught by a dedicated `GlobalExceptionHandler` to provide a consistent `ErrorResponse` object. This centralized logic ensures clarity and a uniform format for "user not found" error.
+  * **API Versioning:** To fulfill the business requirement for GitHub API `v3`, the application uses the `X-GitHub-Api-Version: 2022-11-28` header. This approach, recommended by GitHub, ensures long-term stability and resilience to potential future API changes.
   * **Resilience to External API Failures:** The original requirements only specified handling the "User Not Found" error. However, the implementation was extended to ensure service stability. If fetching branches for a single repository fails (e.g., due to a network error or a temporary GitHub API issue), the entire process is not interrupted. Instead, an empty list of branches is returned for that specific repository.
+  * **Asynchronous Data Fetching (CompletableFuture):** Branch details for each repository are fetched in parallel. This approach prevents the application from being blocked or slowed down when fetching data for a large number of a user's repositories.
   * **Secure URL Construction (UriComponentsBuilder):** All external API URLs are built using `UriComponentsBuilder` instead of manual string formatting. This ensures proper parameter encoding, protects against potential errors, and aligns with Spring Framework best practices.
   * **Explicit Content Negotiation:** The application strictly enforces the response content type by validating the `Accept` header. This guarantees predictable response formats and prevents miscommunication between the client and the server.
 

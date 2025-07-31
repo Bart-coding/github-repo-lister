@@ -183,7 +183,7 @@ A successful request returns a list of repositories and their branches.
 
 ## Key Implementation Aspects
 
-  * **Asynchronous Data Fetching (CompletableFuture):** Branch details for each repository are fetched in parallel. This significantly reduces the total API response time, especially for users with a large number of repositories.
+  * **Asynchronous Data Fetching (CompletableFuture):** Branch details for each repository are fetched in parallel. This approach prevents the application from being blocked or slowed down when fetching data for a large number of a user's repositories.
   * **Resilience to External API Failures:** The original requirements only specified handling the "User Not Found" error. However, the implementation was extended to ensure service stability. If fetching branches for a single repository fails (e.g., due to a network error or a temporary GitHub API issue), the entire process is not interrupted. Instead, an empty list of branches is returned for that specific repository.
   * **Secure URL Construction (UriComponentsBuilder):** All external API URLs are built using `UriComponentsBuilder` instead of manual string formatting. This ensures proper parameter encoding, protects against potential errors, and aligns with Spring Framework best practices.
   * **Explicit Content Negotiation:** The application strictly enforces the response content type by validating the `Accept` header. This guarantees predictable response formats and prevents miscommunication between the client and the server.

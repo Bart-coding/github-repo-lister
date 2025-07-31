@@ -127,7 +127,7 @@ Retrieves a list of repositories for a given user.
 
 | Header  | Value           | Required | Description                                |
 | :------ | :-------------- | :------- | :----------------------------------------- |
-| `Accept` | `application/json` | Yes      | Ensures the response is returned in JSON format. |
+| `Accept` | `application/json` | Yes      | Ensures the response is returned in JSON format. The application strictly enforces this header.|
 
 ### Example Responses
 

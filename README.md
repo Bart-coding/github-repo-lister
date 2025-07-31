@@ -62,7 +62,9 @@ The application's logic follows a simple data flow:
 
 ### Configuration
 
-To avoid rate-limiting issues with the public GitHub API, it's highly recommended to use a Personal Access Token.
+### GitHub API Rate Limiting
+
+To avoid issues with the public GitHub API, it's highly recommended to use a **Personal Access Token**. Without a token, the API applies a strict rate limit of 60 requests per hour for unauthenticated requests, which can cause the application to fail for users with many repositories. Using a token increases the limit significantly to 5,000 requests per hour. For more details on these limits, consult the official [GitHub documentation](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api).
 
 1.  Generate a new token in your GitHub account under `Settings > Developer settings > Personal access tokens`. The `public_repo` scope is sufficient.
 2.  Set the token as an environment variable named `GITHUB_API_TOKEN`:

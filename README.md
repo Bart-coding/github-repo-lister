@@ -105,7 +105,7 @@ To run the unit and integration tests, execute the following command:
 mvn test
 ````
 
-The project includes a single integration test, as per the business requirements, which verifies the primary use case, also known as the "happy path." Note that the test does not use mocks. It is an integration test that verifies the real API client's behavior and the service layer's data processing.
+The project includes a single integration test, as per the business requirements, which verifies the primary use case, also known as the *happy path*. Note that the test does not use mocks. It is an integration test that verifies the real API client's behavior and the service layer's data processing.
 
 -----
 

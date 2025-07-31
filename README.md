@@ -146,7 +146,7 @@ A successful request returns a list of repositories and their branches.
     "ownerLogin": "octocat",
     "branches": [
       {
-        "branchName": "main",
+        "name": "main",
         "lastCommitSha": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"
       }
     ]
@@ -156,11 +156,11 @@ A successful request returns a list of repositories and their branches.
     "ownerLogin": "octocat",
     "branches": [
       {
-        "branchName": "main",
+        "name": "main",
         "lastCommitSha": "f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2"
       },
       {
-        "branchName": "test-branch",
+        "name": "test-branch",
         "lastCommitSha": "c9b8a7d6e5f4c9b8a7d6e5f4c9b8a7d6e5f4c9b8"
       }
     ]
@@ -177,7 +177,7 @@ A successful request returns a list of repositories and their branches.
 ```json
 {
   "status": 404,
-  "message": "User with login 'a-non-existent-user-xyz-123' was not found."
+  "message": "GitHub user 'a-non-existent-user-xyz-123' not found."
 }
 ```
 

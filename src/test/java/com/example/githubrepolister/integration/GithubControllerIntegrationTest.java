@@ -40,10 +40,10 @@ public class GithubControllerIntegrationTest {
         );
 
         assertThat(expectedResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        List<RepoView> repositories = expectedResponse.getBody();
-        assertThat(repositories).isNotNull().isNotEmpty();
+        List<RepoView> repos = expectedResponse.getBody();
+        assertThat(repos).isNotNull().isNotEmpty();
 
-        RepoView firstRepo = repositories.getFirst();
+        RepoView firstRepo = repos.getFirst();
         assertThat(firstRepo.repositoryName()).isNotBlank();
         assertThat(firstRepo.ownerLogin()).isEqualTo(existingUsername);
         assertThat(firstRepo.branches()).isNotNull().isNotEmpty();

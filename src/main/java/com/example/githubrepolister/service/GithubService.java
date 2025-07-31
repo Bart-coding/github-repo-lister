@@ -107,6 +107,7 @@ public class GithubService {
     private HttpEntity<?> createJsonAcceptHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept((List.of(MediaType.APPLICATION_JSON)));
+        headers.set("X-GitHub-Api-Version", "2022-11-28");
         return new HttpEntity<>(headers);
     }
 }
